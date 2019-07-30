@@ -119,3 +119,7 @@ Thumbs.db
 
 # config file
 config.py
+
+# ignore data files
+*.tsv
+data_imdb
