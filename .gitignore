@@ -122,4 +122,4 @@ config.py
 
 # ignore data files
 *.tsv
-data_imdb
+data_imdb/
