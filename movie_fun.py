@@ -444,4 +444,10 @@ def genre_instances_insertion(query, data):
         for genre_id in datum[1]:
             cursor.execute(query, (movie_id, genre_id))
             cnx.commit()
-        
+
+#####TESTING FUNCTIONS
+def add_2(n):
+    return 2+n
+
+def multiply_2(n):
+    return add_2(n)*2
