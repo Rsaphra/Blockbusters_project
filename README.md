@@ -23,10 +23,13 @@ __OMDb__: Supplemental data has been acquired from OMDb for the 200 top rated mo
 
 ### Technical Description:
 
-We began raising questions about the movies
+We began by defining what the company deems as success followed by raising the questions to help up conclude what creates a successful movie.
+for example:
 
 1. Are some genres more popular than others?
+
 2. Are different genres more profitable than otheers
-3. 
+
+We then designed the db's pipeline and constructes it. 
 
 We webscraped [OMDb](http://www.omdbapi.com/ "OMDb") and [TMDb](https://www.themoviedb.org/?language=en-US "TMDb") using their own APIs.
