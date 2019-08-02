@@ -82,9 +82,7 @@ def create_tables():
     # drop current_tables if they exist
     drop_all_current_tables()
     # creating the queries for the actual tables setting business id as a primary key and a foreign key
-
     cnx, cursor = connect_to_db()
-
     TABLES = get_create_queries()
     # create the table using
     for table_name in TABLES:
@@ -99,7 +97,7 @@ def create_tables():
                 print(err.msg)
         else:
             print("OK")
-
+    # make sure connection is closed
     cursor.close()
     cnx.close()
 
@@ -115,7 +113,8 @@ def execute_query(query):
     return result
 
 
-# inserting genre instances based on the genre_ids in a movie_data and relating them to genre_data
+# inserting genre instances based on the genre_ids
+# in a movie_data and relating them to genre_data
 def insert_genre_instances(movie_data):
     cnx, cursor = connect_to_db()
     # first iterate through each movie data
@@ -170,7 +169,7 @@ def convert_to_int(string):
     '''This function tries to convert a string into an integer, if it fails
        it will return "null"'''
     try:
-        clean_string = re.sub('\W+','', string)
+        clean_string = re.sub('\W+', '', string)
         clean_string = int(clean_string)
     except:
         clean_string = "NULL"
@@ -193,7 +192,7 @@ def convert_list_from_tuples(tuple_list):
     for item in tuple_list:
         title_list.append(item[0])
     return title_list
-    
+
 
 def get_all_movie_info():
     '''This function grabs all the data from inside
@@ -209,6 +208,7 @@ def get_all_movie_info():
     c.close()
     return results
 
+
 def get_movie_names():
     '''This function grabs the title from inside
        the "movies" table in movie db'''
@@ -220,7 +220,7 @@ def get_movie_names():
     results = c.fetchall()
     cnx.close()
     c.close()
-    title_list = convert_list_from_tuples(results) 
+    title_list = convert_list_from_tuples(results)
     return title_list
 
 
@@ -230,8 +230,9 @@ def check_data_fields(data, list_of_fields):
     exists = True
     for field in list_of_fields:
         if field not in data:
-            exists = False        
+            exists = False
     return exists
+
 
 def omdb_api(movies):
     """This function retrieves the movie deatils for list of given movies using omdb api"""
@@ -241,46 +242,45 @@ def omdb_api(movies):
         url = f'http://www.omdbapi.com/?apikey={config.omdb_api}&t={title}'
         response = requests.get(url)
         movie = response.json()
-        #check to make sure each key is always in the dict
+        # check to make sure each key is always in the dict
         necessary_fields = ['Director', 'BoxOffice', 'Ratings', 'Title']
         if check_data_fields(movie, necessary_fields):
-            #4 necessary fields, title is important for the insert statement query later
+            # 4 necessary fields, title is important for the insert statement query later
             movie_dict = {'director': movie['Director'],
                           'boxoffice': convert_to_int(movie['BoxOffice']),
                           'rt_rating': rt_rating(movie),
                           'title': movie['Title']}
             movies_details.append(movie_dict)
         time.sleep(.2)
-        
-    
-    return movies_details 
+
+    return movies_details
 
 
 def add_omdb_values_to_movies():
     """Add box office, director and rotten tomatoes rating 
     from the omdb to our pre-existing movies DB"""
-    
-    #retrieve all movie names and pass to omdb_api to get a 
-    #list of dictionaries with values of directora nd box_office and rating
+
+    # retrieve all movie names and pass to omdb_api to get a
+    # list of dictionaries with values of directora nd box_office and rating
     all_titles = get_movie_names()
     omdb_values = omdb_api(all_titles)
     return omdb_values
 
 
-
-#to account for when rt_rating or box_office doesn't exist, we have different sql statements for each case
+# to account for when rt_rating or box_office
+# doesn't exist, we have different sql statements for each case
 def determing_insert_query(values):
     director = values[0]
     box_office = values[1]
     rt_rating = values[2]
     title = values[3]
-    #both box office and rating are absent
+    # both box office and rating are absent
     if box_office == "NULL" and rt_rating == None:
         return f"""UPDATE movies
                     SET 
                         director = "{director}"
                     WHERE title = "{title}";"""
-    #box office is absent
+    # box office is absent
     elif box_office == 'NULL':
         return f"""UPDATE movies
                     SET 
@@ -294,7 +294,7 @@ def determing_insert_query(values):
                         director = "{director}", 
                         box_office = '{box_office}'
                     WHERE title = "{title}";"""
-    #all accounted for
+    # all accounted for
     else:
         return f"""UPDATE movies
                     SET 
@@ -315,7 +315,8 @@ def insert_omdb_values(values):
     cnx.close
 
 
-#to test to see if title = {title} actually matches anything
+# to test to see if title = {title}
+# actually matches anything
 def check_title_match(values):
     title = values[3]
     insert_q = f"""SELECT title, movie_id
@@ -330,16 +331,17 @@ def check_title_match(values):
 
 
 #################################################################################
-#TMDb_api helper functions   
+# TMDb_api helper functions
 
-#parse through the data and retrieve only what I need
+# parse through the data and retrieve only what I
+# need
 def arrange_data(data):
     """This function receives the raw data that we pulled. that is saved in a list of pages.
        each page contains a list of movies for every movie """
     new_list = []
     for page in data:
         for dictionary in page:
-            #save the values we want for each title
+            # save the values we want for each title
             new_dictionary = {}
             for k, v in dictionary.items():
                 if k == 'id':
@@ -360,13 +362,16 @@ def arrange_data(data):
     return new_list
 
 ###############################
-#these two functions make sure our data is in tuple form
+# these two functions make sure our data is in tuple form
+
+
 def create_tuple(reducted_data):
     data = (reducted_data['id'], reducted_data['title'],
-             reducted_data['popularity'], reducted_data['release_date'],
-             reducted_data['vote_count'], reducted_data['vote_average'])
+            reducted_data['popularity'], reducted_data['release_date'],
+            reducted_data['vote_count'], reducted_data['vote_average'])
 
     return data
+
 
 def multiple_tuples(reducted_data):
     list_tuples = []
@@ -375,7 +380,9 @@ def multiple_tuples(reducted_data):
     return list_tuples
 ################################
 
-#'movies' table insertion function
+# 'movies' table insertion function
+
+
 def db_insertion(query, data):
     '''This function inserts one instance of data into our db'''
     try:
@@ -387,37 +394,38 @@ def db_insertion(query, data):
         print(f"{datum} already exists!")
     pass
 
+
 def top_rated(pages):
     """This function retrieves the top rated movies from the movie db using their api.
        The user is required to give it a list of the pages they want to obtain from the db"""
-    
+
     url = f'https://api.themoviedb.org/3/movie/top_rated?api_key={config.api_key}'
     top_rated = []
     for page in pages:
-        #updating the 'page' paramater
+        # updating the 'page' paramater
         params = {'language': '', 'page': page}
         response = requests.get(url, params=params)
         json_response = response.json()
-        #making sure we have data before going on
+        # making sure we have data before going on
         if 'results' in json_response:
             top_rated.append(json_response['results'])
-        #considering movieDB limit for requests
+        # considering movieDB limit for requests
         time.sleep(4)
-    #returns a list of dictionary. each page on a different dictionary.
+    # returns a list of dictionary. each page on a different dictionary.
     reducted_data = arrange_data(top_rated)
     #tupple_data = multiple_tuples(reducted_data)
-    return  reducted_data
+    return reducted_data
 
 
 def populate_movies_table(data):
     cnx, cursor = connect_to_db()
-    #the query we use to insert
+    # the query we use to insert
     insert_movies_q = ("""INSERT INTO movies 
                      (movie_id, title, popularity, 
                      release_date, vote_count, vote_avg)
                      VALUES (%s, %s, %s, %s, %s, %s)""")
 
-    #get the full list of all values to be inserted
+    # get the full list of all values to be inserted
     tupled_data = multiple_tuples(data)
     # insert the business data ito db
     db_insertion(insert_movies_q, tupled_data)
@@ -427,10 +435,11 @@ def populate_movies_table(data):
     cnx.close()
 
 
-#helper functiosn in populating the genre instances table
+# helper functiosn in populating the genre instances table
 def create_genre_tuple(reducted_data):
     data = (reducted_data['id'], reducted_data['genre_ids'])
     return data
+
 
 def genres_tuples(reducted_data):
     list_tuples = []
@@ -438,16 +447,10 @@ def genres_tuples(reducted_data):
         list_tuples.append(create_genre_tuple(movie))
     return list_tuples
 
+
 def genre_instances_insertion(query, data):
     for datum in data:
         movie_id = datum[0]
         for genre_id in datum[1]:
             cursor.execute(query, (movie_id, genre_id))
             cnx.commit()
-
-#####TESTING FUNCTIONS
-def add_2(n):
-    return 2+n
-
-def multiply_2(n):
-    return add_2(n)*2
