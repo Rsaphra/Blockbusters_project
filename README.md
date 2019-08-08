@@ -4,9 +4,9 @@
 Gain insight into current trends in the movie making industry.  
 
 ## Data Sources:
-__TMDb__:  The majority of data collection has revovled around The Movie Database site. Using TMDb we gathered a list of the top 1000 movies ever created ([TMDb API](https://www.themoviedb.org/?language=en-US "TMDb")).
+__TMDb__:  The majority of data collection has revovled around The Movie Database site. Using TMDb we gathered a list of the top 1000 movies ever created.
 
-__OMDb__: Supplemental data has been acquired from the Open Movies DB for the 1000 titles that were extracted from TMDb ([OMDb API](http://www.omdbapi.com/ "OMDb")]).
+__OMDb__: Supplemental data has been acquired from the Open Movies DB for the 1000 titles that were extracted from TMDb.
 
 | Data                   | Source |
 | ---------------------- | ------ |
@@ -22,25 +22,31 @@ __OMDb__: Supplemental data has been acquired from the Open Movies DB for the 10
 
 ## Technical Description:
 
-In order to complete our goal we utilized [Amazon Web Services](https://aws.amazon.com/ "Amazon Web Services") (AWS RDS) and initiated a databse  instance to store all the data we gather. To increase collaboration efficiency we used [GitHub](https://github.com/ "GitHub"), this allowed us to work uninterrupted, simultaneously, and independently.
+In order to complete our goal we utilized [Amazon Web Services](https://aws.amazon.com/ "Amazon Web Services") (AWS RDS) and initiated a database  instance to store all the data we gathered. To increase collaboration efficiency we used [GitHub](https://github.com/ "GitHub"); this allowed us to work uninterrupted, simultaneously, and independently.
 
-The majority of our code was written in Jupyter Notebooks using Python. Furthermore, we used [VSCode](https://code.visualstudio.com/ "VSCode") (Python) to create 4 modules that contain all the functions we created. Additionaly, We used MySQL queries to interact with our AWS-RDS.
+The majority of our code was written in Jupyter Notebooks using Python. Furthermore, we used [VSCode](https://code.visualstudio.com/ "VSCode") to create 4 Python modules that contain all the functions we created. Additionaly, we used MySQL queries to interact with our AWS-RDS.
 
 # Methodology
 
 ## Define Success
 
-## Get Data
+Definition: "the attainment of popularity or profit".
 
-## Analyze Data
-
-We began by defining what the company deems as success followed by raising the questions to help up conclude what creates a successful movie.
-for example:
+We defined success by focusing mainly on popularity. Followed by raising questions such as:
 
 1. Are some genres more popular than others?
+2. Which directors create the most popular movies?
+3. Which movie genre creates the most revenue?
 
-2. Are different genres more profitable than others
+## Workflow
 
-We then designed the db's pipeline and constructes it. 
-
-We webscraped [OMDb](http://www.omdbapi.com/ "OMDb") and [TMDb](https://www.themoviedb.org/?language=en-US "TMDb") using their own APIs.
+* Create AWS RDS Instance
+* Create DB Schema
+* Populate Tables
+  * Gather data using [OMDb's](http://www.omdbapi.com/ "OMDb") and [TMDb's](https://www.themoviedb.org/?language=en-US "TMDb") own APIs
+  * Clean data using Python to extract only what we might need.
+* Data Analyses
+  * Extract the relevent data using MySQL queries
+  * Create visuals using [Matplotlib](https://matplotlib.org/ "Matplotlib")
+  
+## Results
