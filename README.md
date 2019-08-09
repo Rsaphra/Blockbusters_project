@@ -57,7 +57,11 @@ We started out by looking at the distribution of genres within the top rated mov
 
 Before we dove deeper into more analyses we first tested the different rating metrics that were available to us (rotten tomatoes rating and TMDB's popularity) with the box office revenues to check with one correlated better. Popularity seemed to correlate more with the average revenues (r=0.7349) than rotten tomatoes rating (r=0.0666)
 
-![Popularity and Revenues](Images/rev_over_popu.JPG "Popularity and Revenues") ![RT Rating and Revenues](Images/rev_over_rating.JPG "RT Rating and Revenues")
+<img src=Images/rev_over_popu.JPG alt="[Popularity and Revenues" width="450"/>
+
+<img src=Images/rev_over_rating.JPG alt="RT Rating and Revenues" width="450"/>
+
+
 
 
 
@@ -65,4 +69,10 @@ Before we dove deeper into more analyses we first tested the different rating me
 
 
 #### DB-Schema
+
+
+<img src=Images/db_schema.JPG alt="DB Schema" width="450"/>
+
+
 ![Schema](Images/db_schema.JPG "Schema")
+![Popularity and Revenues](Images/rev_over_popu.JPG "Popularity and Revenues") ![RT Rating and Revenues](Images/rev_over_rating.JPG "RT Rating and Revenues")
