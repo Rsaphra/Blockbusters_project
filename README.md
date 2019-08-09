@@ -41,7 +41,7 @@ We defined success by focusing mainly on popularity. Followed by raising questio
 ## Workflow
 
 * Create AWS RDS Instance
-* Create DB Schema
+* Create [DB Schema](#DB-Schema)
 * Populate Tables
   * Gather data using [OMDb's](http://www.omdbapi.com/ "OMDb") and [TMDb's](https://www.themoviedb.org/?language=en-US "TMDb") own APIs
   * Clean data using Python to extract only what we might need.
@@ -57,4 +57,12 @@ We started out by looking at the distribution of genres within the top rated mov
 
 Before we dove deeper into more analyses we first tested the different rating metrics that were available to us (rotten tomatoes rating and TMDB's popularity) with the box office revenues to check with one correlated better. Popularity seemed to correlate more with the average revenues (r=0.73489501) than rotten tomatoes rating (r=0.06660523)
 
-![Popularity and Revenues](./Images/rev_over_popu.JPG "Popularity and Revenues")![RT Rating and Revenues](./Images/rev_over_rating.JPG "RT Rating and Revenues")
+![Popularity and Revenues](Images/rev_over_popu.JPG "Popularity and Revenues") ![RT Rating and Revenues](Images/rev_over_rating.JPG "RT Rating and Revenues")
+
+
+
+
+
+
+#### DB-Schema
+![Schema](Images/db_schema.JPG "Schema")
