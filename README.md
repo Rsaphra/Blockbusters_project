@@ -50,3 +50,15 @@ We defined success by focusing mainly on popularity. Followed by raising questio
   * Create visuals using [Matplotlib](https://matplotlib.org/ "Matplotlib")
   
 ## Results
+
+We started out by looking at the distribution of genres within the top rated movies in TMDb.
+
+
+![Total Movies Per Genre Pie](Images/genre_pie.jpg "Total Movies Per Genre Pie")
+
+
+Before we dove deeper into more analyses we first tested the different rating metrics that were available to us (rotten tomatoes rating and TMDB's popularity) with the box office revenues to check with one correlated better. Popularity seemed to correlate more with the average revenues (r=0.73489501) than rotten tomatoes rating (r=0.06660523)
+
+
+
+![Popularity and Revenues](Images/rev_over_popu.jpg "Popularity and Revenues")![RT Rating and Revenues](Images/rev_over_rating.jpg "RT Rating and Revenues")
