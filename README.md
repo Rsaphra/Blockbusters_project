@@ -84,7 +84,8 @@ In addition to dramas not being most popular they also did not bring in the most
 
 ## Take Home Message
 
-This was just an initial scope the initial scope. Our recommendation is focused on what content not to create, dramatic cinema. The market is saturated and these movies and those movies weren't so popular among viewers.
+This was just an initial scope. Our recommendation is focused more on what content not to create, dramatic cinema. The market is saturated and these movies and those movies are not the most so popular among viewers.
+
 If an immediate decision has to be made, we would recommend filming an action/adventure movie, based on a comic series or book.
 
 #### DB-Schema
