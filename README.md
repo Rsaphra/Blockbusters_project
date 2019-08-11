@@ -88,7 +88,7 @@ This was just an initial scope. Our recommendation is focused more on what conte
 
 If an immediate decision has to be made, we would recommend filming an action/adventure movie, based on a comic series or book.
 
-#### DB-Schema
+#### DB Schema
 
 <img src=Images/db_schema.JPG alt="DB Schema" width="450"/>
 
